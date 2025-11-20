@@ -185,6 +185,7 @@ Desktop.ini
 logs/
 
 # API keys and secrets
+.env
 .env.local
 .env.*.local
 secrets.json
