@@ -1,0 +1,152 @@
+{
+  "report_title": "Accel 2025 US AI 100",
+  "report_date": "November 2025",
+  "categories": [
+    {
+      "category_name": "FOUNDATION MODELS / DATA",
+      "companies": [
+        "AssemblyAI",
+        "Cartesia",
+        "Chai Discovery",
+        "David AI",
+        "LMArena",
+        "reducto"
+      ]
+    },
+    {
+      "category_name": "AI INFRASTRUCTURE",
+      "companies": [
+        "braintrust",
+        "Browserbase",
+        "raindrop",
+        "Judgment Labs",
+        "Kernel",
+        "parallel",
+        "STACKLOK",
+        "exa",
+        "VAPI"
+      ]
+    },
+    {
+      "category_name": "AI-ENABLED SERVICES",
+      "companies": [
+        "Applied Compute",
+        "crosby",
+        "Fifteenth",
+        "PACE",
+        "Paraform"
+      ]
+    },
+    {
+      "category_name": "DEVELOPER TOOLING",
+      "companies": [
+        "ASTRAL",
+        "cdata",
+        "chalk",
+        "CINDER",
+        "E2B",
+        "Graphite",
+        "Laravel",
+        "MERGE",
+        "momentic",
+        "Nova Intelligence",
+        "Resolve.ai",
+        "TierZero AI",
+        "turbopuffer",
+        "Traversal",
+        "WorkOS"
+      ]
+    },
+    {
+      "category_name": "VERTICAL AI",
+      "companies": [
+        "Accordance",
+        "AVOCA",
+        "Basis",
+        "BRISK TEACHING",
+        "Clarion",
+        "CODEMETAL",
+        "convoke",
+        "Endeavor",
+        "Endex",
+        "FurtherAI",
+        "HappyRobot",
+        "trunk tools",
+        "netic",
+        "SALIENT",
+        "NOMINAL",
+        "Norm AI",
+        "PermitFlow",
+        "SILNA",
+        "Strala",
+        "tandem",
+        "Tennr",
+        "toma",
+        "Voltai"
+      ]
+    },
+    {
+      "category_name": "HORIZONTAL AI APPLICATIONS",
+      "companies": [
+        "Auctor AI",
+        "Blockit",
+        "campfire",
+        "CONSOLE",
+        "Flint",
+        "IZIORI",
+        "Forge",
+        "Juicebox",
+        "KREA",
+        "Lightfield",
+        "Listen",
+        "Penrose",
+        "Profound",
+        "Pylon",
+        "Quanta",
+        "R0X",
+        "Serval",
+        "sola",
+        "summation",
+        "TRANSCEND",
+        "WisdomAI"
+      ]
+    },
+    {
+      "category_name": "SECURITY",
+      "companies": [
+        "7AI",
+        "Adaptive",
+        "AegisAI",
+        "ANDESITE",
+        "cogent",
+        "ConductorOne",
+        "Corridor",
+        "depthfirst",
+        "Doppel",
+        "prophet"
+      ]
+    },
+    {
+      "category_name": "CONSUMER",
+      "companies": [
+        "ALTA",
+        "Daydream",
+        "Delphi",
+        "Finch",
+        "Generation Lab",
+        "POKE",
+        "sesame",
+        "Tolan"
+      ]
+    },
+    {
+      "category_name": "ROBOTICS",
+      "companies": [
+        "Generalist",
+        "wolray",
+        "SPECTER",
+        "xDOF"
+      ]
+    }
+  ]
+}
