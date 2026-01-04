@@ -1,3 +1,8 @@
+# A script that retrieves a company logo for an array of
+# companies in two steps:
+# 1. Generates playwright code with claude from a prompt
+# 2. Execute a natural language browser task using Kernel's Playwright Execution API.
+
 import os
 from pathlib import Path
 from kernel import Kernel

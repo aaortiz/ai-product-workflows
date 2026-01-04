@@ -1,4 +1,22 @@
+# An approach to use Claude and Kernel Playwrigth execution
+# API to download high quality logos from websites. The steps
+# are as follows:
+#
+# 1. JSON containing company information -> array of tasks
+# 2. Claude creates playwright code from prompt
+# 3. Kernel Playwright Execution API -> retrieves logos by 
+#    using the code from step 2 and Kernel broswers.
+# 4. Sort logos by priority alogrithm which provides the highest 
+#    quality logos on average
+#
+# Drawback: Incurs a Claude API Call to generates playwright code 
+# for every company in the task array. This is problematic at scale.
+# Consider using favicon-static-playwright.py to avoid this drawback.
 import os
+import re
+import json
+from pprint import pprint
+from typing import Union
 from pathlib import Path
 from kernel import Kernel
 from anthropic import Anthropic
@@ -13,7 +31,7 @@ kernel = Kernel()
 anthropic = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 # Output directory for downloads
-DOWNLOAD_DIR = Path(__file__).parent / "downloads" / "favicons"
+DOWNLOAD_DIR = Path(__file__).parent / "downloads" / "favicons-v10"
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -123,7 +141,6 @@ If no favicons are found, return an empty array: return [];
         return code
 
     # Extract function name and add invocation
-    import re
     function_match = re.search(r'async function (\w+)\s*\(', code)
 
     if function_match:
@@ -135,6 +152,38 @@ If no favicons are found, return an empty array: return [];
             code += '\n\nreturn favicons;'
 
     return code
+
+def get_priority(favicon):
+    """
+    Calculate priority for favicon selection.
+    Lower number = higher priority.
+    Prioritizes: SVG > PNG > ICO, with boost for "icon" in name (not part of "favicon")
+    """
+    file_type = favicon.get('type', '').lower()
+    url = favicon.get('url', '').lower()
+    rel = favicon.get('rel', '').lower()
+    
+    # Check if "icon" appears in URL or rel, but NOT as part of "favicon"
+    has_icon = bool(
+        re.search(r'(?<!fav)icon\b', url) or 
+        re.search(r'(?<!fav)icon\b', rel)
+    )
+    
+    # Base priority by file type: SVG > PNG > ICO
+    if file_type == 'svg':
+        base_priority = 0
+    elif file_type == 'png':
+        base_priority = 10
+    elif file_type == 'ico':
+        base_priority = 20
+    else:
+        base_priority = 30
+    
+    # Boost priority (lower number = higher priority) if "icon" is in name
+    if has_icon:
+        base_priority -= 15
+    
+    return base_priority
 
 
 def execute_favicon_download(website_url: str, company_name: str = None) -> dict:
@@ -187,56 +236,51 @@ def execute_favicon_download(website_url: str, company_name: str = None) -> dict
                 print(f"📥 Found {len(favicons)} favicon(s)")
 
                 saved_files = []
+                favicons_sorted = sorted(favicons, key=get_priority)
+                
+                # Only process the first (highest priority) favicon
+                if favicons_sorted:
+                    favicon = favicons_sorted[0]
+                    
+                    if isinstance(favicon, dict):
+                        url = favicon.get('url')
+                        content = favicon.get('content')
+                        file_type = favicon.get('type', 'ico')
+                        sizes = favicon.get('sizes')
+                        rel = favicon.get('rel', 'icon')
+                        is_binary = favicon.get('isBinary', True)
 
-                for idx, favicon in enumerate(favicons):
-                    if not isinstance(favicon, dict):
-                        continue
+                        if content:
+                            # Create filename - always single file
+                            filename = f"{company_name}_favicon.{file_type}"
+                            filepath = DOWNLOAD_DIR / filename
 
-                    url = favicon.get('url')
-                    content = favicon.get('content')
-                    file_type = favicon.get('type', 'ico')
-                    sizes = favicon.get('sizes')
-                    rel = favicon.get('rel', 'icon')
-                    is_binary = favicon.get('isBinary', True)
+                            try:
+                                # Save based on whether it's binary or text
+                                if is_binary:
+                                    # Decode base64 content and save as binary
+                                    import base64
+                                    file_content = base64.b64decode(content)
+                                    with open(filepath, 'wb') as f:
+                                        f.write(file_content)
+                                    file_size = len(file_content)
+                                else:
+                                    # Save as text (SVG)
+                                    with open(filepath, 'w', encoding='utf-8') as f:
+                                        f.write(content)
+                                    file_size = len(content.encode('utf-8'))
 
-                    if not content:
-                        print(f"  ⚠️  Skipping favicon {idx + 1}: no content")
-                        continue
+                                saved_files.append(str(filepath))
+                                print(f"  ✅ Saved: {filename} ({file_size:,} bytes)")
+                                print(f"     URL: {url}")
+                                print(f"     Type: {file_type.upper()} {'(binary/base64)' if is_binary else '(text/SVG)'}")
+                                if sizes:
+                                    print(f"     Sizes: {sizes}")
 
-                    # Create filename
-                    if len(favicons) > 1:
-                        size_str = f"_{sizes.replace(' ', '_')}" if sizes else ''
-                        rel_str = rel.replace(' ', '_').replace('-', '_')
-                        filename = f"{company_name}_favicon_{rel_str}{size_str}.{file_type}"
-                    else:
-                        filename = f"{company_name}_favicon.{file_type}"
-
-                    filepath = DOWNLOAD_DIR / filename
-
-                    try:
-                        # Save based on whether it's binary or text
-                        if is_binary:
-                            # Decode base64 content and save as binary
-                            import base64
-                            file_content = base64.b64decode(content)
-                            with open(filepath, 'wb') as f:
-                                f.write(file_content)
-                            file_size = len(file_content)
+                            except Exception as e:
+                                print(f"  ❌ Error saving {filename}: {e}")
                         else:
-                            # Save as text (SVG)
-                            with open(filepath, 'w', encoding='utf-8') as f:
-                                f.write(content)
-                            file_size = len(content.encode('utf-8'))
-
-                        saved_files.append(str(filepath))
-                        print(f"  ✅ Saved: {filename} ({file_size:,} bytes)")
-                        print(f"     URL: {url}")
-                        print(f"     Type: {'binary (base64)' if is_binary else 'text (SVG)'}")
-                        if sizes:
-                            print(f"     Sizes: {sizes}")
-
-                    except Exception as e:
-                        print(f"  ❌ Error saving {filename}: {e}")
+                            print(f"  ⚠️  No content in selected favicon")
 
                 print(f"\n✨ Download complete! Saved {len(saved_files)} file(s)")
                 print(f"📁 Location: {DOWNLOAD_DIR}")
@@ -275,19 +319,54 @@ def execute_favicon_download(website_url: str, company_name: str = None) -> dict
         kernel.browsers.delete_by_id(kernel_browser.session_id)
         print("🧹 Browser session cleaned up")
 
+def create_tasks_from_report(report_data: Union[dict, str], task: str) -> list[dict]:
+    """
+    Transform a report JSON into an array of tasks for each company.
+    
+    Args:
+        report_data: Either a dict or JSON string containing the report data
+        task: The task description to apply to each company
+        
+    Returns:
+        List of task dictionaries with 'task', 'url', and 'name' keys
+    """
+    if isinstance(report_data, str):
+        report_data = json.loads(report_data)
+    
+    tasks = []
+    
+    for category in report_data.get("categories", []):
+        for company in category.get("companies", []):
+            tasks.append({
+                "task": task,
+                "url": company.get("website", ""),
+                "name": company.get("name", "").lower()
+            })
+    
+    return tasks
 
 def main():
     """
     Example usage: Download favicons from multiple companies
     """
-    companies = [
-        {"url": "https://onkernel.com", "name": "kernel"},
-        {"url": "https://anthropic.com", "name": "anthropic"},
-        # Add more companies here
-        # {"url": "https://stripe.com", "name": "stripe"},
-        # {"url": "https://github.com", "name": "github"},
-        # {"url": "https://openai.com", "name": "openai"},
-    ]
+
+    ### Tasks from a JSON 
+    task = "Find and download the company logo. If it's an SVG, return the SVG content. If it's an image, return the image URL.",
+    report_path = Path("/Users/aaortiz/Documents/source/ai-product-workflows/enriched_companies_full_v4.json")
+    report_data = json.loads(report_path.read_text())
+    tasks = create_tasks_from_report(report_data, task=task)
+
+    pprint(tasks)
+
+    companies = tasks
+    # companies = [
+    #     {"url": "https://onkernel.com", "name": "kernel"},
+    #     {"url": "https://anthropic.com", "name": "anthropic"},
+    #     # Add more companies here
+    #     # {"url": "https://stripe.com", "name": "stripe"},
+    #     # {"url": "https://github.com", "name": "github"},
+    #     # {"url": "https://openai.com", "name": "openai"},
+    # ]
 
     results = []
     for company in companies:

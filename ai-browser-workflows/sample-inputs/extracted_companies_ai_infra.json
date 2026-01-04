@@ -1,0 +1,56 @@
+{
+  "report_title": "Accel 2025 US AI 100",
+  "report_date": "November 2025",
+  "detected_industry": "AI/Machine Learning",
+  "model_used": "haiku-4.5",
+  "enrichment_timestamp": "2025-12-05T14:29:49.602699",
+  "categories": [
+    {
+      "category_name": "AI INFRASTRUCTURE",
+      "companies": [
+        {
+          "name": "Kernel",
+          "website": "https://www.onkernel.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": ""
+        },
+        {
+          "name": "Browserbase",
+          "website": "https://www.browserbase.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": ""
+        },
+        {
+          "name": "braintrust",
+          "website": "https://www.braintrust.dev",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": null
+        },
+        {
+          "name": "exa",
+          "website": "https://exa.ai",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": ""
+        },
+        {
+          "name": "STACKLOK",
+          "website": "https://stacklok.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": null
+        }
+      ]
+    }
+  ],
+  "statistics": {
+    "total_companies": 5,
+    "processed": 5,
+    "successful": 5,
+    "not_found": 0,
+    "errors": 0
+  }
+}

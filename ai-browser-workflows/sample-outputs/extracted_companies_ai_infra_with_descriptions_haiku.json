@@ -1,0 +1,57 @@
+{
+  "report_title": "Accel 2025 US AI 100",
+  "report_date": "November 2025",
+  "detected_industry": "AI/Machine Learning",
+  "model_used": "haiku-4.5",
+  "enrichment_timestamp": "2025-12-05T14:29:49.602699",
+  "categories": [
+    {
+      "category_name": "AI INFRASTRUCTURE",
+      "companies": [
+        {
+          "name": "Kernel",
+          "website": "https://www.onkernel.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "NOT_FOUND"
+        },
+        {
+          "name": "Browserbase",
+          "website": "https://www.browserbase.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Browserbase is a comprehensive platform for developers to host, administer, and monitor headless browsers in the cloud."
+        },
+        {
+          "name": "braintrust",
+          "website": "https://www.braintrust.dev",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Braintrust is an AI-based software designed to scale for building AI products, offering evaluations, prompt playgrounds, data management, and iterative large language model workflows."
+        },
+        {
+          "name": "exa",
+          "website": "https://exa.ai",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Exa is a search engine built for AIs that enables developers to filter the internet's content with complex queries to bring the world's knowledge into their AI apps."
+        },
+        {
+          "name": "STACKLOK",
+          "website": "https://stacklok.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Stacklok helps enterprises use the Model Context Protocol to multiply the value of their AI coding assistants and developers."
+        }
+      ]
+    }
+  ],
+  "statistics": {
+    "total_companies": 5,
+    "processed": 5,
+    "successful": 5,
+    "not_found": 0,
+    "errors": 0
+  },
+  "description_enrichment_timestamp": "2025-12-06T18:26:57.185696"
+}

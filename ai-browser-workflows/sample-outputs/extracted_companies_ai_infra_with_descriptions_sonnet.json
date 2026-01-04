@@ -1,0 +1,57 @@
+{
+  "report_title": "Accel 2025 US AI 100",
+  "report_date": "November 2025",
+  "detected_industry": "AI/Machine Learning",
+  "model_used": "haiku-4.5",
+  "enrichment_timestamp": "2025-12-05T14:29:49.602699",
+  "categories": [
+    {
+      "category_name": "AI INFRASTRUCTURE",
+      "companies": [
+        {
+          "name": "Kernel",
+          "website": "https://www.onkernel.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Kernel provides browser infrastructure for AI agents and web automations, offering an API to instantly launch browsers in the cloud with features like anti-bot detection, session reuse, and autoscaling."
+        },
+        {
+          "name": "Browserbase",
+          "website": "https://www.browserbase.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Browserbase is a serverless platform for hosting, managing, and monitoring headless browsers in the cloud, compatible with Puppeteer, Playwright, and Selenium."
+        },
+        {
+          "name": "braintrust",
+          "website": "https://www.braintrust.dev",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Braintrust is a developer platform for building AI products based on large language models, offering tools for evaluations, logging, prompt management, and real-time prompt serving."
+        },
+        {
+          "name": "exa",
+          "website": "https://exa.ai",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Exa is an AI-powered web search API and search engine built for AI applications, enabling developers to filter and retrieve real-time data from the internet with complex queries."
+        },
+        {
+          "name": "STACKLOK",
+          "website": "https://stacklok.com",
+          "category": "AI INFRASTRUCTURE",
+          "search_notes": "",
+          "description": "Stacklok builds tools and services focused on software supply chain security, helping developers securely develop and deploy software."
+        }
+      ]
+    }
+  ],
+  "statistics": {
+    "total_companies": 5,
+    "processed": 5,
+    "successful": 5,
+    "not_found": 0,
+    "errors": 0
+  },
+  "description_enrichment_timestamp": "2025-12-06T18:28:17.715278"
+}

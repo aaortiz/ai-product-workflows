@@ -1,3 +1,7 @@
+# An example script that uses playwright and a kernel
+# browser to download company logos from a website url.
+# Note this does not use the Kernel playwrigth execution API.
+
 import asyncio
 import os
 from pathlib import Path

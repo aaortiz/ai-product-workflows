@@ -1,3 +1,6 @@
+# The simplest Kernel browser use to download
+# Kernel's official logo from their official website.
+
 import os
 import asyncio
 from kernel import Kernel
