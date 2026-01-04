@@ -17,20 +17,20 @@ Browser automation workflows for enriching company data.
 ## What's Coming
 
 ### Deep Research Agent
+Autonomous research workflows that go beyond single-page extraction.
+
 ### End to End Enrichment Pipeline Example
+A complete working example connecting all workflows together.
 
 ## Built with this
+### Before: Static Market Map
+![Before: Raw market map](./market-map-extractor/images/accel-2025-ai-native-apps.png)
+### After: Sleuthly Enriched Dataset
+![After: Sleuthly output](./docs/images/sleuthly-accel-legal-ai-native-apps-enriched.png)
 
-[Screenshot of Sleuthly showing before/after transformation]
-![Before: Raw market map](docs/market-map-raw.png)
-![After: Sleuthly output](docs/sleuthly-output.png)
-
-Sleuthly uses these workflows to:
-- Extract 7,900+ companies from 86 market maps via OCR
-- Enrich company data with URLs, descriptions, and logos
-- Enable AI-powered research on the extracted data
+Sleuthly transforms static market maps into actionable insights in three steps:
+- Extract companies using Claude's vision capabilities
+- Enrich company data with URLs, descriptions, and logos using Kernel Browser Agents
+- Enable AI-powered research on the extracted data using parallel Research Agents
 
 → [Try Sleuthly](https://sleuthlyai.com/)
-
-## Quick start
-[Installation and basic usage]
